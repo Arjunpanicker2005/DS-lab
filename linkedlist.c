@@ -74,7 +74,80 @@ void insertbefore(int item, int pos){
                new->data=item;
         }
 }
-          
+//function to delete from the front
+void deletef(){
+         if(head==NULL){
+              printf("the list is empty");
+         }
+
+         else{
+                  struct node* temp=head;
+                  head=head->next;
+                  free(temp);
+
+         }
+}
+
+//function to delete from back
+void deleteb(){
+       if(head==NULL){
+               printf("the list is empty");
+
+       }
+       else if(head->next==NULL){
+              head=NULL;
+              free(head);
+       }
+       else{
+               struct node*temp;
+               struct node*ptr=head;
+               while(ptr->next!=NULL){
+                        temp=ptr;
+                        ptr=ptr->next;
+               }
+               temp->next=NULL;
+               
+               free(ptr);
+
+       }
+}
+
+// function to delete a particular element
+void deleteany(int pos){
+        
+        if(pos==0){
+                     deletef();
+        }
+        else{
+                
+                        struct node*prev=NULL;
+                        struct node*temp=head;
+                for(int i=0;i<pos;i++){
+                     prev=temp;
+                     temp=temp->next;
+                        
+                }
+                if(temp==NULL){
+                        printf("the position does not exist\n");
+
+                }
+                else if(temp->next==NULL){
+                       deleteb();
+
+                }
+                else if(head==NULL){
+                         printf("the list is empty\n");
+                          
+
+                }
+                else{
+                         prev->next=temp->next;
+                         free(temp);
+                }
+                }
+        }
+           
+       
 
  
 
@@ -101,7 +174,7 @@ void main(){
       int choice,i=0,item1,pos1;
       printf("===== LINKED LIST =====\n");
       while(i!=13){
-      printf("\nthe operations are \n 1.insert at front\n 2.insert at the back\n 3.insert after a particular element \n 4.insert before an element\n 5.display\n 6.exit\n");
+      printf("\nthe operations are \n 1.insert at front\n 2.insert at the back\n 3.insert after a particular element \n 4.insert before an element\n 5.delete from front\n 6.delete from back\n 7.delete from anywhere\n 8.display\n 9.exit\n");
       scanf("%d",&choice);
       switch(choice){
            case 1:
@@ -129,13 +202,27 @@ void main(){
                        printf("enter the element before which the insertion should take place\n");
                        scanf("%d", &pos1);
                        insertbefore(item1,pos1);
-                       break;           
+                       break;
 
-            case 5:
+             case 5:
+                       deletef();   
+                       break; 
+
+             case 6:
+                            deleteb();
+                            break;  
+
+             case 7: 
+                          printf("enter the position to be deleted given that the index starts from 0\n");
+                          scanf("%d", &pos1);
+                          deleteany(pos1);
+                          break;                                        
+
+            case 8:
 
                       display();
                       break;          
-            case 6:
+            case 9:
                        printf("exiting the program\n");
                        i=13;
                        break;
